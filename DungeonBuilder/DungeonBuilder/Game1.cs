@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using DungeonBuilder.Manager;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,7 +12,7 @@ namespace DungeonBuilder
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
 
-        private Screen mCurrentScreen; // TODO: Move this to ScreenManager
+        private ScreenManager mScreenManager; // TODO: Move this to ScreenManager
 
         public Game1()
         {
@@ -22,7 +23,8 @@ namespace DungeonBuilder
 
         protected override void Initialize()
         {
-            mCurrentScreen = new GameScreen(false, false, mGraphics, GraphicsDevice);
+            Screen gameScreen = new GameScreen(false, false, mGraphics, GraphicsDevice);
+            mScreenManager = new ScreenManager(gameScreen);
 
             base.Initialize();
 
@@ -32,7 +34,7 @@ namespace DungeonBuilder
         {
             mSpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            mCurrentScreen.LoadContent(mSpriteBatch);
+            mScreenManager.LoadContent(mSpriteBatch);
         }
 
         protected override void Update(GameTime gameTime)
@@ -42,14 +44,14 @@ namespace DungeonBuilder
                 Exit();
             }
 
-            mCurrentScreen.Update();
+            mScreenManager.Update();
 
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            mCurrentScreen.Draw();
+            mScreenManager.Draw();
 
             base.Draw(gameTime);
         }

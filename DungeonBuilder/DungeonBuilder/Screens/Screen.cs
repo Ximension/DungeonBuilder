@@ -8,8 +8,8 @@ namespace DungeonBuilder.Screens
     /// </summary>
     public abstract class Screen
     {
-        protected bool mDrawLower;
-        protected bool mUpdateLower;
+        public bool DrawLower { get; private set; }
+        public bool UpdateLower { get; private set; }
 
 
         protected GraphicsDeviceManager mGraphics;
@@ -23,8 +23,8 @@ namespace DungeonBuilder.Screens
         /// <param name="updateLower">Determines whether Update() should be called for lower screen</param>
         public Screen(bool drawLower, bool updateLower, GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice)
         {
-            mDrawLower = drawLower;
-            mUpdateLower = updateLower;
+            DrawLower = drawLower;
+            UpdateLower = updateLower;
 
             mGraphics = graphics;
             mGraphicsDevice = graphicsDevice;
