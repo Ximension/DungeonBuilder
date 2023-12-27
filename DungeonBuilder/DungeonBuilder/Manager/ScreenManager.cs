@@ -17,14 +17,18 @@ namespace DungeonBuilder.Manager
     {
         private Stack<Screen> mScreenStack;
 
+        private CameraManager mCameraManager;
+
         /// <summary>
         /// Creates a new ScreenManager
         /// </summary>
         /// <param name="firstScreen">Lowest Screen to be drawn/updated</param>
-        public ScreenManager(Screen firstScreen)
+        /// <param name="cameraManager"></param>
+        public ScreenManager(Screen firstScreen, CameraManager cameraManager)
         {
             mScreenStack = new();
             mScreenStack.Push(firstScreen);
+            mCameraManager = cameraManager;
         }
 
         public void LoadContent(SpriteBatch spriteBatch)
@@ -47,11 +51,11 @@ namespace DungeonBuilder.Manager
             }
         }
 
-        public void Draw()
+        public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Screen screen in mScreenStack)
             {
-                screen.Draw();
+                screen.Draw(spriteBatch);
                 if (!screen.DrawLower)
                 {
                     break;

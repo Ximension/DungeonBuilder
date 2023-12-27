@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DungeonBuilder.Manager;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
 namespace DungeonBuilder.Screens
@@ -14,10 +16,10 @@ namespace DungeonBuilder.Screens
     /// </summary>
     public class GameScreen : Screen
     {
-
-        public GameScreen(bool drawLower, bool updateLower, GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice) : base(drawLower, updateLower, graphics, graphicsDevice)
+        private CameraManager mCameraManager;
+        public GameScreen(bool drawLower, bool updateLower, GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice, CameraManager cameraManager) : base(drawLower, updateLower, graphics, graphicsDevice)
         {
-
+            mCameraManager = cameraManager;
         }
 
         public override void Update()
@@ -25,9 +27,10 @@ namespace DungeonBuilder.Screens
 
         }
 
-        public override void Draw()
+        public override void Draw(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Begin(transformMatrix: mCameraManager.TransformationMatrix);
+            spriteBatch.End();
             mGraphicsDevice.Clear(Color.CornflowerBlue);
         }
 

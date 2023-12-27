@@ -35,6 +35,6 @@ namespace DungeonBuilder.Screens
             mSpriteBatch = spriteBatch;
         }
         public abstract void Update();
-        public abstract void Draw();
+        public abstract void Draw(SpriteBatch spriteBatch);
     }
 }

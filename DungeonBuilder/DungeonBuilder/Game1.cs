@@ -12,7 +12,8 @@ namespace DungeonBuilder
         private GraphicsDeviceManager mGraphics;
         private SpriteBatch mSpriteBatch;
 
-        private ScreenManager mScreenManager; // TODO: Move this to ScreenManager
+        private ScreenManager mScreenManager;
+        private CameraManager mCameraManager;
 
         public Game1()
         {
@@ -23,8 +24,11 @@ namespace DungeonBuilder
 
         protected override void Initialize()
         {
-            Screen gameScreen = new GameScreen(false, false, mGraphics, GraphicsDevice);
-            mScreenManager = new ScreenManager(gameScreen);
+
+            mCameraManager = new CameraManager(new Vector2(0, 0), 1);
+            Screen gameScreen = new GameScreen(false, false, mGraphics, GraphicsDevice, mCameraManager);
+
+            mScreenManager = new ScreenManager(gameScreen, mCameraManager);
 
             base.Initialize();
 
@@ -51,7 +55,7 @@ namespace DungeonBuilder
 
         protected override void Draw(GameTime gameTime)
         {
-            mScreenManager.Draw();
+            mScreenManager.Draw(mSpriteBatch);
 
             base.Draw(gameTime);
         }
