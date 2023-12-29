@@ -25,8 +25,8 @@ namespace DungeonBuilder
         protected override void Initialize()
         {
 
-            mCameraManager = new CameraManager(new Vector2(0, 0), 1);
-            Screen gameScreen = new GameScreen(false, false, mGraphics, GraphicsDevice, mCameraManager);
+            mCameraManager = new CameraManager(new Vector2(400, 240), 1);
+            Screen gameScreen = new GameScreen(false, false, mCameraManager, Content);
 
             mScreenManager = new ScreenManager(gameScreen, mCameraManager);
 
@@ -38,7 +38,7 @@ namespace DungeonBuilder
         {
             mSpriteBatch = new SpriteBatch(GraphicsDevice);
 
-            mScreenManager.LoadContent(mSpriteBatch);
+            mScreenManager.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)

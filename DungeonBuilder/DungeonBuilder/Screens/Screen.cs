@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using DungeonBuilder.Manager;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace DungeonBuilder.Screens
 {
@@ -11,29 +13,23 @@ namespace DungeonBuilder.Screens
         public bool DrawLower { get; private set; }
         public bool UpdateLower { get; private set; }
 
-
-        protected GraphicsDeviceManager mGraphics;
-        protected GraphicsDevice mGraphicsDevice;
-        protected SpriteBatch mSpriteBatch;
+        protected ResourceManager mResourceManager;
 
         /// <summary>
         /// Create a new screen
         /// </summary>
         /// <param name="drawLower">Determines whether Draw() should be called for lower screen</param>
         /// <param name="updateLower">Determines whether Update() should be called for lower screen</param>
-        public Screen(bool drawLower, bool updateLower, GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice)
+        public Screen(bool drawLower, bool updateLower, ContentManager content)
         {
             DrawLower = drawLower;
             UpdateLower = updateLower;
 
-            mGraphics = graphics;
-            mGraphicsDevice = graphicsDevice;
+            mResourceManager = new ResourceManager(content);
         }
 
-        public void LoadContent(SpriteBatch spriteBatch)
-        {
-            mSpriteBatch = spriteBatch;
-        }
+        public abstract void LoadContent();
+
         public abstract void Update();
         public abstract void Draw(SpriteBatch spriteBatch);
     }

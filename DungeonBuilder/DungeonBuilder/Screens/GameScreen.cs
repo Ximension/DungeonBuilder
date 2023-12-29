@@ -17,9 +17,18 @@ namespace DungeonBuilder.Screens
     public class GameScreen : Screen
     {
         private CameraManager mCameraManager;
-        public GameScreen(bool drawLower, bool updateLower, GraphicsDeviceManager graphics, GraphicsDevice graphicsDevice, CameraManager cameraManager) : base(drawLower, updateLower, graphics, graphicsDevice)
+        public GameScreen(bool drawLower, bool updateLower, CameraManager cameraManager, ContentManager content) : base(drawLower, updateLower, content)
         {
             mCameraManager = cameraManager;
+        }
+
+        public override void LoadContent()
+        {
+            List<string> texturePathList = new() { "Map/MapDebugging" };
+            List<string> soundEffectPathList = new() { };
+            List<string> songPathList = new() { };
+
+            mResourceManager.LoadContent(texturePathList, soundEffectPathList, songPathList);
         }
 
         public override void Update()
@@ -30,8 +39,8 @@ namespace DungeonBuilder.Screens
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(transformMatrix: mCameraManager.TransformationMatrix);
+            spriteBatch.Draw(mResourceManager.GetTexture("Map/MapDebugging"), new Rectangle(0, 0, 800, 480), Color.White);
             spriteBatch.End();
-            mGraphicsDevice.Clear(Color.CornflowerBlue);
         }
 
     }

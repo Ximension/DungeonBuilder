@@ -31,11 +31,11 @@ namespace DungeonBuilder.Manager
             mCameraManager = cameraManager;
         }
 
-        public void LoadContent(SpriteBatch spriteBatch)
+        public void LoadContent()
         {
             foreach (Screen screen in mScreenStack)
             {
-                screen.LoadContent(spriteBatch);
+                screen.LoadContent();
             }
         }
 
