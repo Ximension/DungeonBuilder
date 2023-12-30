@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using DungeonBuilder.Screens;
+using System;
 
 namespace DungeonBuilder
 {
@@ -25,7 +26,7 @@ namespace DungeonBuilder
         protected override void Initialize()
         {
 
-            mCameraManager = new CameraManager(new Vector2(400, 240), 1);
+            mCameraManager = new CameraManager(new Vector2(-200, -120), 2f);
             Screen gameScreen = new GameScreen(false, false, mCameraManager, Content);
 
             mScreenManager = new ScreenManager(gameScreen, mCameraManager);
@@ -39,6 +40,14 @@ namespace DungeonBuilder
             mSpriteBatch = new SpriteBatch(GraphicsDevice);
 
             mScreenManager.LoadContent();
+
+            Viewport viewport = GraphicsDevice.Viewport;
+            Trace.WriteLine($"Viewport Width: {viewport.Width}");
+            Trace.WriteLine($"Viewport Height: {viewport.Height}");
+            Trace.WriteLine($"Top Left Corner: {viewport.Bounds.Left}");
+            Trace.WriteLine($"Bottom Right Corner: {viewport.Bounds.Right}");
+            Trace.WriteLine($"Top-Left Coordinate: ({viewport.Bounds.Left}, {viewport.Bounds.Top})");
+            Trace.WriteLine($"Bottom-Right Coordinate: ({viewport.Bounds.Right}, {viewport.Bounds.Bottom})");
         }
 
         protected override void Update(GameTime gameTime)
@@ -55,6 +64,7 @@ namespace DungeonBuilder
 
         protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.Clear(Color.White);
             mScreenManager.Draw(mSpriteBatch);
 
             base.Draw(gameTime);

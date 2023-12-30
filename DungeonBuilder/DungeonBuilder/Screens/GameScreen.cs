@@ -33,7 +33,7 @@ namespace DungeonBuilder.Screens
 
         public override void Update()
         {
-
+            mCameraManager.Update();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
