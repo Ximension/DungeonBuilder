@@ -13,8 +13,8 @@ namespace DungeonBuilder.Manager
     /// </summary>
     public class CameraManager
     {
-        private int mPrevMouseWheel = 0; // TODO: put in inputmanager
-        public Matrix TransformationMatrix { get; private set; } 
+        public Matrix TransformationMatrix { get; private set; }
+        private KeyBindingManager mKeyBindingManager;
 
         /// <summary>
         /// Creates a new CameraManager
@@ -27,6 +27,8 @@ namespace DungeonBuilder.Manager
             Matrix translationMatrix = Matrix.CreateTranslation(new Vector3(initialPosition, 0));
 
             TransformationMatrix = translationMatrix * zoomMatrix;
+
+            mKeyBindingManager = new();
         }
 
         private void Zoom(float zoomFactor)
@@ -43,33 +45,31 @@ namespace DungeonBuilder.Manager
 
         public void Update()
         {
-            // TODO: put in inputmanager
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
+            mKeyBindingManager.Update();
+            if (mKeyBindingManager.CheckAction(KeyBindingManager.Actions.MoveCameraUp))
             {
                 Move(new Vector2(0, 5));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            if (mKeyBindingManager.CheckAction(KeyBindingManager.Actions.MoveCameraLeft))
             {
                 Move(new Vector2(5, 0));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
+            if (mKeyBindingManager.CheckAction(KeyBindingManager.Actions.MoveCameraDown))
             {
                 Move(new Vector2(0, -5));
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
+            if (mKeyBindingManager.CheckAction(KeyBindingManager.Actions.MoveCameraRight))
             {
                 Move(new Vector2( -5, 0));
             }
-            int wheel = Mouse.GetState().ScrollWheelValue;
-            if (wheel > mPrevMouseWheel)
+
+            if (mKeyBindingManager.CheckAction(KeyBindingManager.Actions.ZoomCameraIn))
             {
                 Zoom(1.2f);
-                mPrevMouseWheel = wheel;
             }
-            if (wheel < mPrevMouseWheel)
+            if (mKeyBindingManager.CheckAction(KeyBindingManager.Actions.ZoomCameraOut))
             {
                 Zoom(0.8f);
-                mPrevMouseWheel = wheel;
             }
         }
     }
