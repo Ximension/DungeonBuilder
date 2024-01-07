@@ -36,25 +36,37 @@ namespace DungeonBuilder.Manager
         }
 
         /// <summary>
-        /// Loads textures, soundeffects and songs into the manager
+        /// Loads textures into the manager
         /// </summary>
         /// <param name="texturePathList"></param>
-        /// <param name="soundEffectPathList"></param>
-        /// <param name="songPathList"></param>
-        public void LoadContent(List<string> texturePathList, List<string> soundEffectPathList, List<string> songPathList)
+        public void LoadTextures(List<string> texturePathList)
         {
             foreach (string texturePath in texturePathList)
             {
                 Texture2D texture = mContent.Load<Texture2D>(texturePath);
                 mTextures.Add(texturePath, texture);
             }
+        }
 
+        /// <summary>
+        /// Loads soundeffects into the manager
+        /// </summary>
+        /// <param name="soundEffectPathList"></param>
+        public void LoadSoundEffects(List<string> soundEffectPathList)
+        {
             foreach (string soundEffectPath in soundEffectPathList)
             {
                 SoundEffect soundEffect = mContent.Load<SoundEffect>(soundEffectPath);
                 mSoundEffects.Add(soundEffectPath, soundEffect);
             }
+        }
 
+        /// <summary>
+        /// Loads songs into the manager
+        /// </summary>
+        /// <param name="songPathList"></param>
+        public void LoadSongs(List<string> songPathList)
+        {
             foreach (string songPath in songPathList)
             {
                 Song song = mContent.Load<Song>(songPath);

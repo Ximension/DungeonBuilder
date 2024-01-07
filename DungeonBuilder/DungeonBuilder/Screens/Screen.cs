@@ -20,12 +20,12 @@ namespace DungeonBuilder.Screens
         /// </summary>
         /// <param name="drawLower">Determines whether Draw() should be called for lower screen</param>
         /// <param name="updateLower">Determines whether Update() should be called for lower screen</param>
-        public Screen(bool drawLower, bool updateLower, ContentManager content)
+        public Screen(bool drawLower, bool updateLower, ResourceManager resourceManager)
         {
             DrawLower = drawLower;
             UpdateLower = updateLower;
 
-            mResourceManager = new ResourceManager(content);
+            mResourceManager = resourceManager;
         }
 
         public abstract void LoadContent();

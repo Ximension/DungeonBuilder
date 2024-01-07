@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DungeonBuilder.Manager;
+using DungeonBuilder.World;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 
@@ -17,30 +18,33 @@ namespace DungeonBuilder.Screens
     public class GameScreen : Screen
     {
         private CameraManager mCameraManager;
-        public GameScreen(bool drawLower, bool updateLower, CameraManager cameraManager, ContentManager content) : base(drawLower, updateLower, content)
+        private InputManager mInputManager;
+        private KeyBindingManager mKeyBindingManager;
+
+        private Map mMap;
+
+        public GameScreen(bool drawLower, bool updateLower, CameraManager cameraManager, KeyBindingManager keyBindingManager, ResourceManager resourceManager) : base(drawLower, updateLower, resourceManager)
         {
             mCameraManager = cameraManager;
+            mKeyBindingManager = keyBindingManager;
+
+            mMap = new Map(new Point(10, 10), mCameraManager, mKeyBindingManager, resourceManager);
         }
 
         public override void LoadContent()
         {
-            List<string> texturePathList = new() { "Map/MapDebugging" };
-            List<string> soundEffectPathList = new() { };
-            List<string> songPathList = new() { };
-
-            mResourceManager.LoadContent(texturePathList, soundEffectPathList, songPathList);
+            mMap.LoadContent();
         }
 
         public override void Update()
         {
             mCameraManager.Update();
+            mMap.Update();
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(transformMatrix: mCameraManager.TransformationMatrix);
-            spriteBatch.Draw(mResourceManager.GetTexture("Map/MapDebugging"), new Rectangle(0, 0, 800, 480), Color.White);
-            spriteBatch.End();
+            mMap.Draw(spriteBatch);
         }
 
     }

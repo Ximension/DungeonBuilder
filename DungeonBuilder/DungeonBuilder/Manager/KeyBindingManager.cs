@@ -21,7 +21,9 @@ namespace DungeonBuilder.Manager
             MoveCameraLeft,
             MoveCameraRight,
             ZoomCameraOut,
-            ZoomCameraIn
+            ZoomCameraIn,
+            DebugMapExtraRow,
+            DebugMapExtraCol
         }
 
         private Dictionary<Actions, (Keys, InputManager.KeyState)> mKeyBindingDict = new()
@@ -29,7 +31,9 @@ namespace DungeonBuilder.Manager
             { Actions.MoveCameraUp, (Keys.W, InputManager.KeyState.Pressed) },
             { Actions.MoveCameraDown, (Keys.S, InputManager.KeyState.Pressed)},
             { Actions.MoveCameraLeft, (Keys.A, InputManager.KeyState.Pressed)},
-            { Actions.MoveCameraRight, (Keys.D, InputManager.KeyState.Pressed) }
+            { Actions.MoveCameraRight, (Keys.D, InputManager.KeyState.Pressed) },
+            { Actions.DebugMapExtraRow, (Keys.D1, InputManager.KeyState.Pressed) },
+            { Actions.DebugMapExtraCol, (Keys.D2, InputManager.KeyState.Pressed) },
         };
 
         private Dictionary<Actions, InputManager.ScrollWheelState> mScrollWheelBindingDict = new()

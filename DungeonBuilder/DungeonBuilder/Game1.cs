@@ -15,6 +15,8 @@ namespace DungeonBuilder
 
         private ScreenManager mScreenManager;
         private CameraManager mCameraManager;
+        private KeyBindingManager mKeyBindingManager;
+        private ResourceManager mResourceManager;
 
         public Game1()
         {
@@ -25,10 +27,10 @@ namespace DungeonBuilder
 
         protected override void Initialize()
         {
-
-            mCameraManager = new CameraManager(new Vector2(-200, -120), 2f);
-            Screen gameScreen = new GameScreen(false, false, mCameraManager, Content);
-
+            mKeyBindingManager = new();
+            mCameraManager = new CameraManager(new Vector2(-200, -120), 2f, mKeyBindingManager);
+            mResourceManager = new ResourceManager(Content);
+            Screen gameScreen = new GameScreen(false, false, mCameraManager, mKeyBindingManager, mResourceManager);
             mScreenManager = new ScreenManager(gameScreen, mCameraManager);
 
             base.Initialize();

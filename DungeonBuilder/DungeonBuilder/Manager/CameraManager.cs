@@ -21,14 +21,14 @@ namespace DungeonBuilder.Manager
         /// </summary>
         /// <param name="initialPosition">The center of the camera should be on this coordinate</param>
         /// <param name="initialZoom">The zoom of the camera</param>
-        public CameraManager(Vector2 initialPosition, float initialZoom)
+        public CameraManager(Vector2 initialPosition, float initialZoom, KeyBindingManager keyBindingManager)
         {
             Matrix zoomMatrix = Matrix.CreateScale(initialZoom);
             Matrix translationMatrix = Matrix.CreateTranslation(new Vector3(initialPosition, 0));
 
             TransformationMatrix = translationMatrix * zoomMatrix;
 
-            mKeyBindingManager = new();
+            mKeyBindingManager = keyBindingManager;
         }
 
         private void Zoom(float zoomFactor)
