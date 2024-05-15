@@ -2,10 +2,12 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DungeonBuilder.Manager;
+using DungeonBuilder.UI;
 using DungeonBuilder.World;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -18,8 +20,8 @@ namespace DungeonBuilder.Screens
     public class GameScreen : Screen
     {
         private CameraManager mCameraManager;
-        private InputManager mInputManager;
         private KeyBindingManager mKeyBindingManager;
+        private ResourceManager mResourceManager;
 
         private Map mMap;
 
@@ -27,8 +29,9 @@ namespace DungeonBuilder.Screens
         {
             mCameraManager = cameraManager;
             mKeyBindingManager = keyBindingManager;
+            mResourceManager = resourceManager;
 
-            mMap = new Map(new Point(10, 10), mCameraManager, mKeyBindingManager, resourceManager);
+            mMap = new Map(new Point(10, 10), mCameraManager, mKeyBindingManager, mResourceManager);
         }
 
         public override void LoadContent()
@@ -38,7 +41,6 @@ namespace DungeonBuilder.Screens
 
         public override void Update()
         {
-            mCameraManager.Update();
             mMap.Update();
         }
 
@@ -46,6 +48,5 @@ namespace DungeonBuilder.Screens
         {
             mMap.Draw(spriteBatch);
         }
-
     }
 }

@@ -325,3 +325,10 @@
 /processorParam:TextureFormat=Color
 /build:Map/Tiles/empty.png
 
+#begin UI/Fonts/Vulnus.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:UI/Fonts/Vulnus.spritefont
+

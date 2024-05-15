@@ -45,7 +45,6 @@ namespace DungeonBuilder.Manager
 
         public void Update()
         {
-            mKeyBindingManager.Update();
             if (mKeyBindingManager.CheckAction(KeyBindingManager.Actions.MoveCameraUp))
             {
                 Move(new Vector2(0, 5));

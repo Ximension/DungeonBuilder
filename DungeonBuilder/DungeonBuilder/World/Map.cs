@@ -77,9 +77,6 @@ namespace DungeonBuilder.World
 
         public void Update()
         {
-            mCameraManager.Update();
-            mKeyBindingManager.Update();
-
             if (mKeyBindingManager.CheckAction(KeyBindingManager.Actions.DebugMapExtraRow))
             {
                 ExtendRows(1);
@@ -88,7 +85,6 @@ namespace DungeonBuilder.World
             {
                 ExtendCols(1);
             }
-            Trace.WriteLine(mMapSize);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -104,6 +100,10 @@ namespace DungeonBuilder.World
             }
         }
 
+        /// <summary>
+        /// Extends the map by extra rows
+        /// </summary>
+        /// <param name="extraRowCount">Amount of rows to be added</param>
         private void ExtendRows(int extraRowCount)
         {
             Texture2D emptyTile = mResourceManager.GetTexture(mTilePath + "/empty");
@@ -119,6 +119,10 @@ namespace DungeonBuilder.World
             }
         }
 
+        /// <summary>
+        /// Extends the map by extra columns
+        /// </summary>
+        /// <param name="extraColCount">Amount of columns to be added</param>
         private void ExtendCols(int extraColCount)
         {
             Texture2D emptyTile = mResourceManager.GetTexture(mTilePath + "/empty");

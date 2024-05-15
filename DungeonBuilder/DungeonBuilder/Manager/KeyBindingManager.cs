@@ -1,9 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DungeonBuilder.UI;
 
 namespace DungeonBuilder.Manager
 {
@@ -42,6 +44,8 @@ namespace DungeonBuilder.Manager
             { Actions.ZoomCameraIn, InputManager.ScrollWheelState.Up }
         };
 
+        private Dictionary<string, (Button, InputManager.ClickableButtonState)> mButtonBindingDict = new();
+
         /// <summary>
         /// Creates a new KeyBindingManager
         /// </summary>
@@ -75,6 +79,19 @@ namespace DungeonBuilder.Manager
         }
 
         /// <summary>
+        /// Checks, whether a button has been pressed that corresponds to a given action
+        /// </summary>
+        /// <param name="returnValue">String that corresponds to a button</param>
+        /// <param name="consume">Determines, whether the input press should be deleted</param>
+        /// <returns></returns>
+        public bool CheckAction(string returnValue, bool consume = true)
+        {
+            // Check the corresponding button to the return value
+            (Button, InputManager.ClickableButtonState) buttonBinding = mButtonBindingDict[returnValue];
+            return mInputManager.CheckButton(buttonBinding.Item1, buttonBinding.Item2, consume);
+        }
+
+        /// <summary>
         /// Changes the Keybindings for an action. The KeyState should not be changed.
         /// </summary>
         /// <param name="action"></param>
@@ -86,7 +103,22 @@ namespace DungeonBuilder.Manager
             mInputManager.UpdateBoundKeys(GetAllKeys());
         }
 
-        // Returns a list of all keys that are bound to an action
+        /// <summary>
+        /// Adds a button and a corresponding action
+        /// </summary>
+        /// <param name="newButton">Button to be added</param>
+        /// <param name="returnValue">String that gets returned when the action is carried out</param>
+        /// <param name="clickableButtonState">State the button must be in to return the value</param>
+        public void AddButton(Button newButton, string returnValue, InputManager.ClickableButtonState clickableButtonState)
+        {
+            mButtonBindingDict.Add(returnValue, (newButton, clickableButtonState));
+            mInputManager.AddButton(newButton);
+        }
+
+        /// <summary>
+        /// Returns a list of all keys that are bound to an action
+        /// </summary>
+        /// <returns></returns>
         private List<Keys> GetAllKeys()
         {
             List<Keys> allKeys = new();

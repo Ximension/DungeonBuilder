@@ -19,6 +19,7 @@ namespace DungeonBuilder.Manager
         private Dictionary<string, Texture2D> mTextures;
         private Dictionary<string, SoundEffect> mSoundEffects;
         private Dictionary<string, Song> mSongs;
+        private Dictionary<string, SpriteFont> mSpriteFonts;
 
         private ContentManager mContent;
 
@@ -33,6 +34,7 @@ namespace DungeonBuilder.Manager
             mTextures = new();
             mSoundEffects = new();
             mSongs = new();
+            mSpriteFonts = new();
         }
 
         /// <summary>
@@ -71,6 +73,19 @@ namespace DungeonBuilder.Manager
             {
                 Song song = mContent.Load<Song>(songPath);
                 mSongs.Add(songPath, song);
+            }
+        }
+
+        /// <summary>
+        /// Loads spritefonts into the manager
+        /// </summary>
+        /// <param name="spriteFontPathList"></param>
+        public void LoadSpriteFonts(List<string> spriteFontPathList)
+        {
+            foreach (string spriteFontPath in spriteFontPathList)
+            {
+                SpriteFont spriteFont = mContent.Load<SpriteFont>(spriteFontPath);
+                mSpriteFonts.Add(spriteFontPath, spriteFont);
             }
         }
 
@@ -114,6 +129,20 @@ namespace DungeonBuilder.Manager
                 return null;
             }
             return mSongs[path];
+        }
+
+        /// <summary>
+        /// Returns a SpriteFont, stored by the ResourceManager. If it does not exist, null is returned.
+        /// </summary>
+        /// <param name="path">path to the SpriteFont</param>
+        /// <returns></returns>
+        public SpriteFont GetSpriteFont(string path)
+        {
+            if (!mSpriteFonts.ContainsKey(path))
+            {
+                return null;
+            }
+            return mSpriteFonts[path];
         }
     }
 }
