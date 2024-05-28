@@ -116,6 +116,23 @@ namespace DungeonBuilder.Manager
         }
 
         /// <summary>
+        /// Removes the binding to a button
+        /// </summary>
+        /// <param name="buttonToRemove"></param>
+        public void RemoveButton(Button buttonToRemove)
+        {
+            foreach (string returnValue in mButtonBindingDict.Keys)
+            {
+                (Button, InputManager.ClickableButtonState) button = mButtonBindingDict[returnValue];
+                if (button.Item1 == buttonToRemove)
+                {
+                    mButtonBindingDict.Remove(returnValue);
+                }
+            }
+            mInputManager.RemoveButton(buttonToRemove);
+        }
+
+        /// <summary>
         /// Returns a list of all keys that are bound to an action
         /// </summary>
         /// <returns></returns>

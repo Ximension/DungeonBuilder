@@ -25,7 +25,7 @@ namespace DungeonBuilder.Screens
 
         private Map mMap;
 
-        public GameScreen(bool drawLower, bool updateLower, CameraManager cameraManager, KeyBindingManager keyBindingManager, ResourceManager resourceManager) : base(drawLower, updateLower, resourceManager)
+        public GameScreen(CameraManager cameraManager, KeyBindingManager keyBindingManager, ResourceManager resourceManager) : base(false, false, resourceManager)
         {
             mCameraManager = cameraManager;
             mKeyBindingManager = keyBindingManager;

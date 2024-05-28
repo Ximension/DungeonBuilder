@@ -32,14 +32,9 @@ namespace DungeonBuilder.UI
 
         public void LoadContent(string spriteFontPath, string texturePath)
         {
-            List<string> spriteFontPathList = new()
-            {
-                spriteFontPath
-            };
-            mResourceManager.LoadSpriteFonts(spriteFontPathList);
+            mSpriteFont = mResourceManager.GetSpriteFont(spriteFontPath, true);
+            mTexture = mResourceManager.GetTexture(texturePath, true);
 
-            mSpriteFont = mResourceManager.GetSpriteFont(spriteFontPath);
-            mTexture = mResourceManager.GetTexture(texturePath);
             mBounds.Width = mTexture.Bounds.Width;
             mBounds.Height = mTexture.Bounds.Height;
 

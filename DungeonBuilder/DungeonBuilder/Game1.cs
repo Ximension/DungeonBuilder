@@ -30,8 +30,10 @@ namespace DungeonBuilder
             mKeyBindingManager = new();
             mCameraManager = new CameraManager(new Vector2(-200, -120), 2f, mKeyBindingManager);
             mResourceManager = new ResourceManager(Content);
-            Screen gameScreen = new GameScreen(false, false, mCameraManager, mKeyBindingManager, mResourceManager);
-            mScreenManager = new ScreenManager(gameScreen, mCameraManager);
+            mScreenManager = new ScreenManager(mCameraManager);
+
+            Screen menuMainScreen = new MenuMainScreen(mResourceManager, mKeyBindingManager, mScreenManager, mCameraManager, this);
+            mScreenManager.Push(menuMainScreen);
 
             base.Initialize();
 
@@ -40,8 +42,6 @@ namespace DungeonBuilder
         protected override void LoadContent()
         {
             mSpriteBatch = new SpriteBatch(GraphicsDevice);
-
-            mScreenManager.LoadContent();
 
             Viewport viewport = GraphicsDevice.Viewport;
             Trace.WriteLine($"Viewport Width: {viewport.Width}");

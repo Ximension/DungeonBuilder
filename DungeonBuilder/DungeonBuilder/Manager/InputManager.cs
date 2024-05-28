@@ -414,5 +414,14 @@ namespace DungeonBuilder.Manager
         {
             mBoundButtons.Add(button);
         }
+
+        /// <summary>
+        /// Removes a button from being checked by the manager
+        /// </summary>
+        /// <param name="button"></param>
+        public void RemoveButton(Button button)
+        {
+            mBoundButtons.Remove(button);
+        }
     }
 }

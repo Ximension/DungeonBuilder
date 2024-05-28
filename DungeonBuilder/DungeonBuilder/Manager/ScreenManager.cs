@@ -22,21 +22,11 @@ namespace DungeonBuilder.Manager
         /// <summary>
         /// Creates a new ScreenManager
         /// </summary>
-        /// <param name="firstScreen">Lowest Screen to be drawn/updated</param>
         /// <param name="cameraManager"></param>
-        public ScreenManager(Screen firstScreen, CameraManager cameraManager)
+        public ScreenManager(CameraManager cameraManager)
         {
             mScreenStack = new();
-            mScreenStack.Push(firstScreen);
             mCameraManager = cameraManager;
-        }
-
-        public void LoadContent()
-        {
-            foreach (Screen screen in mScreenStack)
-            {
-                screen.LoadContent();
-            }
         }
 
         public void Update()
@@ -60,6 +50,29 @@ namespace DungeonBuilder.Manager
                 {
                     break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Puts a new screen on the stack
+        /// </summary>
+        /// <param name="screen"></param>
+        public void Push(Screen screen)
+        {
+            screen.LoadContent();
+            mScreenStack.Push(screen);
+        }
+
+        /// <summary>
+        /// Deletes a screen and optionally replaces it
+        /// </summary>
+        /// <param name="replaceScreen"></param>
+        public void Pop(Screen replaceScreen=null)
+        {
+            mScreenStack.Pop();
+            if (replaceScreen is not null)
+            {
+                Push(replaceScreen);
             }
         }
     }

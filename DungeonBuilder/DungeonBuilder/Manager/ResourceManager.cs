@@ -38,6 +38,20 @@ namespace DungeonBuilder.Manager
         }
 
         /// <summary>
+        /// Load a texture into the manager
+        /// </summary>
+        /// <param name="texturePath"></param>
+        public void LoadTexture(string texturePath)
+        {
+            if (mTextures.Keys.Contains(texturePath))
+            {
+                return;
+            }
+            Texture2D texture = mContent.Load<Texture2D>(texturePath);
+            mTextures.Add(texturePath, texture);
+        }
+
+        /// <summary>
         /// Loads textures into the manager
         /// </summary>
         /// <param name="texturePathList"></param>
@@ -45,22 +59,40 @@ namespace DungeonBuilder.Manager
         {
             foreach (string texturePath in texturePathList)
             {
-                Texture2D texture = mContent.Load<Texture2D>(texturePath);
-                mTextures.Add(texturePath, texture);
+                LoadTexture(texturePath);
             }
         }
 
         /// <summary>
-        /// Loads soundeffects into the manager
+        /// Loads a sound effect into the manager
+        /// </summary>
+        /// <param name="soundEffectPath"></param>
+        public void LoadSoundEffect(string soundEffectPath)
+        {
+            SoundEffect soundEffect = mContent.Load<SoundEffect>(soundEffectPath);
+            mSoundEffects.Add(soundEffectPath, soundEffect);
+        }
+
+        /// <summary>
+        /// Loads sound effects into the manager
         /// </summary>
         /// <param name="soundEffectPathList"></param>
         public void LoadSoundEffects(List<string> soundEffectPathList)
         {
             foreach (string soundEffectPath in soundEffectPathList)
             {
-                SoundEffect soundEffect = mContent.Load<SoundEffect>(soundEffectPath);
-                mSoundEffects.Add(soundEffectPath, soundEffect);
+                LoadSoundEffect(soundEffectPath);
             }
+        }
+
+        /// <summary>
+        /// Loads a song into the manager
+        /// </summary>
+        /// <param name="songPath"></param>
+        public void LoadSong(string songPath)
+        {
+            Song song = mContent.Load<Song>(songPath);
+            mSongs.Add(songPath, song);
         }
 
         /// <summary>
@@ -71,21 +103,29 @@ namespace DungeonBuilder.Manager
         {
             foreach (string songPath in songPathList)
             {
-                Song song = mContent.Load<Song>(songPath);
-                mSongs.Add(songPath, song);
+                LoadSong(songPath);
             }
         }
 
         /// <summary>
-        /// Loads spritefonts into the manager
+        /// Loads a sprite font into the manager
+        /// </summary>
+        /// <param name="spriteFontPath"></param>
+        public void LoadSpriteFont(string spriteFontPath)
+        {
+            SpriteFont spriteFont = mContent.Load<SpriteFont>(spriteFontPath);
+            mSpriteFonts.Add(spriteFontPath, spriteFont);
+        }
+
+        /// <summary>
+        /// Loads sprite fonts into the manager
         /// </summary>
         /// <param name="spriteFontPathList"></param>
         public void LoadSpriteFonts(List<string> spriteFontPathList)
         {
             foreach (string spriteFontPath in spriteFontPathList)
             {
-                SpriteFont spriteFont = mContent.Load<SpriteFont>(spriteFontPath);
-                mSpriteFonts.Add(spriteFontPath, spriteFont);
+                LoadSpriteFont(spriteFontPath);
             }
         }
 
@@ -94,11 +134,15 @@ namespace DungeonBuilder.Manager
         /// </summary>
         /// <param name="path">path to the Texture</param>
         /// <returns></returns>
-        public Texture2D GetTexture(string path)
+        public Texture2D GetTexture(string path, bool add = false)
         {
             if (!mTextures.ContainsKey(path))
             {
-                return null;
+                if (!add)
+                {
+                    return null;
+                }
+                LoadTexture(path);
             }
             return mTextures[path];
         }
@@ -108,11 +152,15 @@ namespace DungeonBuilder.Manager
         /// </summary>
         /// <param name="path">path to the SoundEffect</param>
         /// <returns></returns>
-        public SoundEffect GetSoundEffect(string path)
+        public SoundEffect GetSoundEffect(string path, bool add=false)
         {
             if (!mSoundEffects.ContainsKey(path))
             {
-                return null;
+                if (!add)
+                {
+                    return null;
+                }
+                LoadSoundEffect(path);
             }
             return mSoundEffects[path];
         }
@@ -122,25 +170,34 @@ namespace DungeonBuilder.Manager
         /// </summary>
         /// <param name="path">path to the Song</param>
         /// <returns></returns>
-        public Song GetSong(string path)
+        public Song GetSong(string path, bool add=false)
         {
             if (!mSongs.ContainsKey(path))
             {
-                return null;
+                if (!add)
+                {
+                    return null;
+                }
+                LoadSong(path);
             }
             return mSongs[path];
         }
 
         /// <summary>
-        /// Returns a SpriteFont, stored by the ResourceManager. If it does not exist, null is returned.
+        /// Returns a SpriteFont, stored by the ResourceManager.
         /// </summary>
         /// <param name="path">path to the SpriteFont</param>
+        /// <param name="add">If true, texture will be added if it does not exist</param>
         /// <returns></returns>
-        public SpriteFont GetSpriteFont(string path)
+        public SpriteFont GetSpriteFont(string path, bool add = false)
         {
             if (!mSpriteFonts.ContainsKey(path))
             {
-                return null;
+                if (!add)
+                {
+                    return null;
+                }
+                this.LoadSpriteFont(path);
             }
             return mSpriteFonts[path];
         }
