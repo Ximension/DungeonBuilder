@@ -18,12 +18,20 @@ namespace DungeonBuilder.Manager
     {
         private int mPreviousScrollWheelValue;
         private MouseState mMouseState;
-        private HashSet<Keys> mPressed;
-        private HashSet<Keys> mReleased;
-        private HashSet<Keys> mHeld;
+
+        private HashSet<Keys> mPressedKeys;
+        private HashSet<Keys> mReleasedKeys;
+        private HashSet<Keys> mHeldKeys;
+        // Create another hashset to prevent unwanted behaviour
+        // for consumed inputs
+        private HashSet<Keys> mPressedKeysReturn;
+        private HashSet<Keys> mReleasedKeysReturn;
+        private HashSet<Keys> mHeldKeysReturn;
+
         private HashSet<MouseButton> mPressedMouse;
         private HashSet<MouseButton> mReleasedMouse;
         private HashSet<MouseButton> mHeldMouse;
+
         private HashSet<Button> mClickedButtons;
         private HashSet<Button> mReleasedButtons;
         private HashSet<Button> mHeldButtons;
@@ -66,9 +74,13 @@ namespace DungeonBuilder.Manager
         /// </summary>
         public InputManager(List<Keys> boundKeyList)
         {
-            mPressed = new();
-            mReleased = new();
-            mHeld = new();
+            mPressedKeys = new();
+            mReleasedKeys = new();
+            mHeldKeys = new();
+
+            mPressedKeysReturn = new();
+            mReleasedKeysReturn = new();
+            mHeldKeysReturn = new();
 
             mPressedMouse = new();
             mReleasedMouse = new();
@@ -96,33 +108,41 @@ namespace DungeonBuilder.Manager
                 // if a key is down and was not pressed just before, it is pressed
                 if (keyboardState.IsKeyDown(key))
                 {
-                    if (!mPressed.Contains(key) && !mHeld.Contains(key))
+                    if (!mPressedKeys.Contains(key) && !mHeldKeys.Contains(key))
                     {
-                        mPressed.Add(key);
+                        mPressedKeys.Add(key);
+                        mPressedKeysReturn.Add(key);
                     }
                     else
                     {
-                        mPressed.Remove(key);
-                        mHeld.Add(key);
+                        mPressedKeys.Remove(key);
+                        mHeldKeys.Add(key);
+                        mPressedKeysReturn.Remove(key);
+                        mHeldKeysReturn.Add(key);
                     }
                 }
                 // if a key is not down but was released just before, it now isn't released anymore
-                else if (mReleased.Contains(key))
+                else if (mReleasedKeys.Contains(key))
                 {
-                    mReleased.Remove(key);
+                    mReleasedKeys.Remove(key);
+                    mReleasedKeysReturn.Remove(key);
                 }
                 // if a key is not down but was down just before, it is now released
                 else
                 {
-                    if (mPressed.Contains(key))
+                    if (mPressedKeys.Contains(key))
                     {
-                        mPressed.Remove(key);
-                        mReleased.Add(key);
+                        mPressedKeys.Remove(key);
+                        mReleasedKeys.Add(key);
+                        mPressedKeysReturn.Remove(key);
+                        mReleasedKeysReturn.Add(key);
                     }
-                    else if (mHeld.Contains(key))
+                    else if (mHeldKeys.Contains(key))
                     {
-                        mHeld.Remove(key);
-                        mReleased.Add(key);
+                        mHeldKeys.Remove(key);
+                        mReleasedKeys.Add(key);
+                        mHeldKeysReturn.Remove(key);
+                        mReleasedKeysReturn.Add(key);
                     }
                 }
             }
@@ -291,21 +311,21 @@ namespace DungeonBuilder.Manager
                 case KeyState.Pressed:
                     if (consume)
                     {
-                        return mPressed.Remove(key);
+                        return mPressedKeysReturn.Remove(key);
                     }
-                    return mPressed.Contains(key);
+                    return mPressedKeysReturn.Contains(key);
                 case KeyState.Held:
                     if (consume)
                     {
-                        return mHeld.Remove(key);
+                        return mHeldKeysReturn.Remove(key);
                     }
-                    return mHeld.Contains(key);
+                    return mHeldKeysReturn.Contains(key);
                 case KeyState.Released:
                     if (consume)
                     {
-                        return mReleased.Remove(key);
+                        return mReleasedKeysReturn.Remove(key);
                     }
-                    return mReleased.Contains(key);
+                    return mReleasedKeysReturn.Contains(key);
                 default:
                     return false;
             }

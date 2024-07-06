@@ -30,10 +30,10 @@ namespace DungeonBuilder.Manager
 
         private Dictionary<Actions, (Keys, InputManager.KeyState)> mKeyBindingDict = new()
         {
-            { Actions.MoveCameraUp, (Keys.W, InputManager.KeyState.Pressed) },
-            { Actions.MoveCameraDown, (Keys.S, InputManager.KeyState.Pressed)},
-            { Actions.MoveCameraLeft, (Keys.A, InputManager.KeyState.Pressed)},
-            { Actions.MoveCameraRight, (Keys.D, InputManager.KeyState.Pressed) },
+            { Actions.MoveCameraUp, (Keys.W, InputManager.KeyState.Held) },
+            { Actions.MoveCameraDown, (Keys.S, InputManager.KeyState.Held)},
+            { Actions.MoveCameraLeft, (Keys.A, InputManager.KeyState.Held)},
+            { Actions.MoveCameraRight, (Keys.D, InputManager.KeyState.Held) },
             { Actions.DebugMapExtraRow, (Keys.D1, InputManager.KeyState.Pressed) },
             { Actions.DebugMapExtraCol, (Keys.D2, InputManager.KeyState.Pressed) },
         };

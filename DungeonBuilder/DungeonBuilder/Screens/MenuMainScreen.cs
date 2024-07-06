@@ -12,14 +12,15 @@ namespace DungeonBuilder.Screens
 {
     internal class MenuMainScreen : MenuScreen
     {
-        private const string mBackgroundPath = "Map/MapDebugging";
+        private const string mBackgroundPath = "UI/Backgrounds/glados";
         private const bool mDrawLower = false;
         private const bool mUpdateLower = false;
 
         private const string mSpriteFontPath = "UI/Fonts/Vulnus";
         private const string mTexturePath = "Map/Tiles/0/0";
 
-        public MenuMainScreen(ResourceManager resourceManager, KeyBindingManager keyBindingManager, ScreenManager screenManager, CameraManager cameraManager, Game1 game) : base(mDrawLower, mUpdateLower, mBackgroundPath, resourceManager, keyBindingManager)
+        public MenuMainScreen(ResourceManager resourceManager, KeyBindingManager keyBindingManager, ScreenManager screenManager, CameraManager cameraManager, Game1 game)
+            : base(mDrawLower, mUpdateLower, mBackgroundPath, new Rectangle(336, 20, 128, 480), resourceManager, keyBindingManager)
         {
             Button startButton = new(new Point(0, 0), "Start", resourceManager);
             Button settingsButton = new(new Point(0, 50), "Settings", resourceManager);
@@ -70,6 +71,8 @@ namespace DungeonBuilder.Screens
             {
                 button.LoadContent(mSpriteFontPath, mTexturePath);
             }
+
+            RepositionButtons(new Point(20, 20));
         }
     }
 }

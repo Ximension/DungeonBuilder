@@ -325,6 +325,18 @@
 /processorParam:TextureFormat=Color
 /build:Map/Tiles/empty.png
 
+#begin UI/Backgrounds/glados.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:UI/Backgrounds/glados.jpg
+
 #begin UI/Fonts/Vulnus.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

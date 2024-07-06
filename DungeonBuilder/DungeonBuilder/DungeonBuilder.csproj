@@ -24,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\UI\Fonts\" />
+    <Folder Include="Content\UI\Backgrounds\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

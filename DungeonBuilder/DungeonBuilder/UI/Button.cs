@@ -53,5 +53,11 @@ namespace DungeonBuilder.UI
         {
             return mBounds;
         }
+
+        public void ChangePosition(Point position)
+        {
+            mLabelPos += (position - mBounds.Location).ToVector2();
+            mBounds.Location = position;
+        }
     }
 }
